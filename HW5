@@ -1,0 +1,131 @@
+package com.company;
+
+import java.util.*;
+
+public class Main {
+
+    static class MyHashSet {
+        private ArrayList[] test;        // arraylist is taken for every stack of elements (in total there are 10 stacks (from 0 to 9) (every stack contains
+        // elements that has numbers with ending from 0 to 9 // ))
+        public int Iterator;    // variable Iterator counts number of elements inside MyHashSet
+        private int num_stacks; // number of stacks chosen in MyHashSet
+        private int count_size;   // number of elements inside MyHashSet
+        private ArrayList<Integer> temp = new ArrayList<Integer>();
+        // constructor of class MyHashSet
+        public MyHashSet(int num_sets) {
+            this.test = new ArrayList[num_sets];
+            this.num_stacks = num_sets;
+        // initialize Arraylists , Iterator and total number of elements inside MyhashSet
+            for (int i = 0; i < num_sets; i++)
+                this.test[i] = new ArrayList();
+            this.Iterator = 0;
+            this.count_size = 0;
+        }
+        // function to check if element contains inside MyhashSet
+        public boolean contains(int x) {
+            boolean res = false;
+            for (int i = 0; i < this.count_size; i++) {
+                if (x == this.temp.get(i)) {
+                    res = true;
+                }
+            }
+            return res;
+        }
+        // add new element to MyHashSet
+        public void add(int x) {
+            if (!(this.contains(x))) {
+                this.Iterator = this.Iterator + 1;
+                // System.out.println(this.Iterator);
+                for (int i = 0; i < this.num_stacks; i++) {
+                    if (((x - i) % 10 == 0) || (x == i)) {
+                        this.test[i].add(x % 10);
+                        this.temp.add(x % 10);
+                    }
+                }
+                this.count_size = this.Iterator;
+            }
+        }
+         // print MyHashSet as stacks (number of stacks equal to 10 according to endings from 0 to 9)
+        public void printString() {
+            for (int i = 0; i < this.num_stacks; i++) {
+                System.out.println(this.test[i]);
+            }
+        }
+        // set Iterator at the begining of MyHashSet
+        public int setIteratorInitial() {
+            this.Iterator = 0;
+            return this.Iterator;
+        }
+        // move Iterator one element up
+        public int Next() {
+            this.Iterator = this.Iterator + 1;
+            return this.Iterator;
+        }
+        // check if Iterator does not reach the end of MyHashSet
+        public boolean hasNext() {
+            if (this.count_size > this.Iterator + 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        // Insert how many elements will be introduced in MyHashSet, this is equal to count_size
+        System.out.println("Введите число елементов, находящихся во множестве:");
+        int size_set = scanner.nextInt();
+        long startTime_HashRun_1 = System.currentTimeMillis();
+        MyHashSet st = new MyHashSet(10);
+        Random generator = new Random(100);
+        int s = 0;
+        int i_r;
+        while (s < size_set) {
+            s++;
+            i_r = generator.nextInt(size_set) + 1; // new elements are chosen from random generator
+            st.add(i_r);
+            System.out.println(i_r);
+        }
+        st.printString();
+        System.out.println();
+        int iter;
+        System.out.println("Print HashSet");
+        iter = st.setIteratorInitial();
+        while (st.hasNext()) {
+            System.out.println(st.Next()); // print every stack from MyHashSet
+        }
+        System.out.println();
+        long endTime_HashRun_1 = System.currentTimeMillis();
+        long totalTime_HashRun_1 = endTime_HashRun_1 - startTime_HashRun_1;
+        System.out.println(totalTime_HashRun_1); // print total time for adding elements to MyHashSet
+
+         // Running the same procedure of adding elements of the Standard HashSet
+        long startTime_HashRun_2 = System.currentTimeMillis();
+        HashSet set = new HashSet();
+        Random gtr = new Random();
+        s = 0;
+        i_r = 0;
+        // size of HashSet is equal to size of MyHashSet (it is user defined)
+        while (s < size_set) {
+            s++;
+            i_r = gtr.nextInt(size_set) + 1;
+            set.add(i_r);
+            System.out.println(set);
+        }
+        System.out.println();
+
+        System.out.println("Enumerate the HashSet");
+
+        Iterator it = set.iterator();
+        // runover all iterator values inside HashSet
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        System.out.println();
+        long endTime_HashRun_2 = System.currentTimeMillis();
+        long totalTime_HashRun_2 = endTime_HashRun_2 - startTime_HashRun_2;
+        System.out.println(totalTime_HashRun_2);
+    }
+}
