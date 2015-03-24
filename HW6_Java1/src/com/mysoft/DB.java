@@ -7,23 +7,29 @@ import java.util.List;
  * Created by shcheki on 20.03.2015.
  */
 public class DB {
-    public static List<News> getNews(){
-        ArrayList<News> News =new ArrayList<News>();
-        News e =new News();
-        e.setTitle("Новость первая");
-        e.setText("Эта первая новость о том, как прекрасен этот мир!");
-        e.setNumNews(1);
-        News.add(e);
+    public static List<Guests> getGuests(){
+        ArrayList<Guests> Guests =new ArrayList<Guests>();
+        Guests e =new Guests();
+        e.setFirstname("John");
+        e.setLastname("Bekerly");
+        e.setUseremail("johnbekkerly@gmail.com");
+        Guests.add(e);
 
-        News e1 =new News();
-        e1.setTitle("Новость вторая");
-        e1.setNumNews(2);
-        e.setText("Эта вторая новость о том, какая чудесная сегодня погода.");
-        News.add(e1);
-        return News;
+        Guests e1 =new Guests();
+        e1.setFirstname("Mathew");
+        e1.setLastname("Errowbought");
+        e1.setUseremail("mathew123@gmail.com");
+        Guests.add(e1);
+        return Guests;
     }
-    public static List<News> setNews(  ArrayList<News> News, News e){
-        News.add(e);
-        return News;
+    public static List<Guests> setGuests( String firstname, String secondname, String Useremail, String textComment){
+        ArrayList<Guests> Guests =new ArrayList<Guests>();
+        Guests e =new Guests();
+        e.setFirstname(firstname);
+        e.setLastname(secondname);
+        e.setUseremail(Useremail);
+        e.setUseremail(textComment);
+        Guests.add(e);
+        return Guests;
     }
 }

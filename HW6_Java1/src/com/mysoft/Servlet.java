@@ -18,31 +18,43 @@ public class Servlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-         request.setAttribute("News",DB.getNews());
+         request.setAttribute("Guests",DB.getGuests());
         PrintWriter out = response.getWriter();
-        request.getRequestDispatcher("com.mysoft.News.jsp").forward(request,response);
+        request.getRequestDispatcher("Guests.jsp").forward(request,response);
         // Retrieve the value of the query parameter "username" (from text field)
-        String textNews = request.getParameter("textNews");
+        String firstname = request.getParameter("firstname");
         // Get null if the parameter is missing from query string.
         // Get empty string or string of white spaces if user did not fill in
-        if (textNews == null) {
-            out.println("<p>Заголовок: MISSING</p>");
+        if (firstname == null) {
+            out.println("<p>First name: MISSING</p>");
         } else {
-            out.println("<p>Заголовок: " + textNews + "</p>");
+            out.println("<p>First name: " + firstname + "</p>");
         }
-        String numNews = request.getParameter("numNews");
+        String lastname = request.getParameter("lastname");
         // Get null if the parameter is missing from query string.
         // Get empty string or string of white spaces if user did not fill in
-        if (numNews == null) {
-            out.println("<p>Номер новости: MISSING</p>");
+        if (lastname == null) {
+            out.println("<p>Last name: MISSING</p>");
         } else {
-            out.println("<p>Номер новости: " + numNews + "</p>");
+            out.println("<p>Last name: " + lastname + "</p>");
         }
-        String title = request.getParameter("title");
-        if (title == null) {
-            out.println("<p>Номер новости: MISSING</p>");
+        String useremail = request.getParameter("useremail");
+        // Get null if the parameter is missing from query string.
+        // Get empty string or string of white spaces if user did not fill in
+        if (useremail == null) {
+            out.println("<p>User email: MISSING</p>");
         } else {
-            out.println("<p>Номер новости: " + title + "</p>");
+            out.println("<p>User email: " + useremail + "</p>");
         }
+        String textComment = request.getParameter("textComment");
+        if (textComment == null) {
+            out.println("<p>Text comment: MISSING</p>");
+        } else {
+            out.println("<p>Text comment: " + textComment + "</p>");
+        }
+        out.close();
+        request.setAttribute("Guests",DB.setGuests(firstname,lastname, useremail, textComment));
+        request.getRequestDispatcher("Guests.jsp").forward(request,response);
+
     }
 }
